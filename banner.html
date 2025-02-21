@@ -11,13 +11,16 @@
             box-sizing: border-box;
         }
 
-        body {
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* Scrollbar yo‘q qilindi */
             background-color: #f8f9fa;
         }
 
         .slider-container {
-            width: 100%;
-            max-width: 100vw;
+            width: 100vw;
+            height: 200px; /* Slider balandligi */
             overflow: hidden;
             position: relative;
         }
@@ -35,7 +38,7 @@
 
         .slide img {
             width: 100%;
-            height: 200px; /* Balandlikni kamaytirish */
+            height: 200px; /* Rasm balandligi */
             object-fit: cover;
             display: block;
         }
@@ -90,7 +93,29 @@
         </div>
     </div>
 
-<script src="https://dcbstommedtexnika.ucoz.net/banner.js?" defer></script>
-<script src="https://dcbstommedtexnika.ucoz.net/story.js?" defer></script>
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+    let currentIndex = 0;
+    const slides = document.querySelectorAll(".slide");
+    const slider = document.querySelector(".slider");
+
+    if (!slider || slides.length === 0) {
+        console.error("Xatolik: .slider yoki .slide elementi topilmadi!");
+        return;
+    }
+
+    const totalSlides = slides.length;
+
+    function nextSlide() {
+        if (slider) {
+            currentIndex = (currentIndex + 1) % totalSlides;
+            slider.style.transform = `translateX(-${currentIndex * 100}vw)`;
+        }
+    }
+
+    setInterval(nextSlide, 5000);
+});
+    </script>
+
 </body>
 </html>
